@@ -15,6 +15,19 @@ export const conversations = sqliteTable(
   (table) => [index("conversations_created_at_idx").on(table.createdAt)],
 );
 
+export const learnedWords = sqliteTable(
+  "learned_words",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    word: text("word").notNull(),
+    translation: text("translation").notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [index("learned_words_created_at_idx").on(table.createdAt)],
+);
+
 export const messages = sqliteTable(
   "messages",
   {

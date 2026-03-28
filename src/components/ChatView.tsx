@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
+import { BookOpen } from "lucide-react";
 
 import { ChatInput } from "~/components/ChatInput";
 import { ChatMessage } from "~/components/ChatMessage";
+import { TextSelectionPopover } from "~/components/TextSelectionPopover";
 import { APP_NAME } from "~/config/app";
+import { useWordShortcuts } from "~/hooks/useWordShortcuts";
 import { type Message, sendMessage } from "~/utils/chat";
 import { addMessage, createConversation } from "~/utils/conversations";
 
@@ -20,13 +23,16 @@ export type ChatViewProps = {
   conversationId: number | null;
   initialMessages: ChatMessageWithId[];
   onConversationCreated?: (id: number) => void;
+  onToggleVocab?: () => void;
 };
 
 export function ChatView({
   conversationId,
   initialMessages,
   onConversationCreated,
+  onToggleVocab,
 }: ChatViewProps) {
+  useWordShortcuts();
   const queryClient = useQueryClient();
   const conversationIdRef = useRef(conversationId);
   const [messages, setMessages] = useState(initialMessages);
@@ -146,10 +152,22 @@ export function ChatView({
 
   return (
     <main className="relative flex min-w-0 flex-1 flex-col bg-linear-to-b from-background via-background to-muted/25">
-      <header className="shrink-0 border-b border-border/60 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/75 md:hidden">
-        <h2 className="text-center text-sm font-medium tracking-tight text-foreground">
-          Chat
-        </h2>
+      <header className="relative shrink-0 border-b border-border/60 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/75 md:hidden">
+        <div className="flex items-center justify-center">
+          <h2 className="text-center text-sm font-medium tracking-tight text-foreground">
+            Chat
+          </h2>
+          {onToggleVocab && (
+            <button
+              type="button"
+              onClick={onToggleVocab}
+              className="absolute right-3 flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              aria-label="Open vocabulary"
+            >
+              <BookOpen className="size-5" />
+            </button>
+          )}
+        </div>
       </header>
 
       <div className="relative flex min-h-0 flex-1 flex-col px-3 pt-3 md:px-5 md:pt-5">
@@ -164,23 +182,25 @@ export function ChatView({
               }
             >
               {hasThread ? (
-                <ul className="flex flex-col gap-10 md:gap-12">
-                  {messages.map((message) => (
-                    <li key={message.id}>
-                      <ChatMessage message={message} />
-                    </li>
-                  ))}
-                  {streamingContent && (
-                    <li key="streaming">
-                      <ChatMessage
-                        message={{
-                          role: "assistant",
-                          content: streamingContent,
-                        }}
-                      />
-                    </li>
-                  )}
-                </ul>
+                <TextSelectionPopover>
+                  <ul className="flex flex-col gap-10 md:gap-12">
+                    {messages.map((message) => (
+                      <li key={message.id}>
+                        <ChatMessage message={message} />
+                      </li>
+                    ))}
+                    {streamingContent && (
+                      <li key="streaming">
+                        <ChatMessage
+                          message={{
+                            role: "assistant",
+                            content: streamingContent,
+                          }}
+                        />
+                      </li>
+                    )}
+                  </ul>
+                </TextSelectionPopover>
               ) : (
                 <div className="pb-28 text-center md:pb-32">
                   <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">

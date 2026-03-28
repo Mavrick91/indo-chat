@@ -187,12 +187,12 @@
   --chart-3: #cacae0; /* space-indigo-900 */
   --chart-4: #aea4ad; /* lilac-ash-600 */
   --chart-5: #d4bdb8; /* almond-silk-600 */
-  --sidebar: #07070c; /* space-indigo-100 */
-  --sidebar-foreground: #ebe8ea; /* lilac-ash-900 */
+  --sidebar: #141423; /* space-indigo-300 — lifted from near-black for readability */
+  --sidebar-foreground: #f7f1ee; /* parchment-700 — higher contrast body text */
   --sidebar-primary: #cacae0; /* space-indigo-900 */
   --sidebar-primary-foreground: #07070c; /* space-indigo-100 */
-  --sidebar-accent: #1e1f2a; /* dusty-grape-200 */
-  --sidebar-accent-foreground: #d8dae3; /* dusty-grape-900 */
-  --sidebar-border: #3b3e54; /* dusty-grape-400 */
+  --sidebar-accent: #2c2f3f; /* dusty-grape-300 — clearer surfaces vs sidebar bg */
+  --sidebar-accent-foreground: #e4e6ed; /* brighter secondary on accent */
+  --sidebar-border: #4a4e69; /* dusty-grape-500 — visible dividers */
   --sidebar-ring: #8b8fac; /* dusty-grape-700 */
 }
