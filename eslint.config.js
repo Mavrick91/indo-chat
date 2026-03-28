@@ -117,6 +117,9 @@ export default tseslint.config(
       // Allow numbers and other values in template literals without String()
       "@typescript-eslint/restrict-template-expressions": "off",
 
+      // Allow e.g. `cond && doSomething()` / arrow shorthand that returns void
+      "@typescript-eslint/no-confusing-void-expression": "off",
+
       // Prefer const
       "prefer-const": "error",
 

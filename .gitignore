@@ -20,3 +20,6 @@ yarn.lock
 
 dist/
 .tanstack/
+tasks/
+data/
+drizzle/

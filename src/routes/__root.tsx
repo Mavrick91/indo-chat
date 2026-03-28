@@ -15,11 +15,14 @@ import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary";
 import { NotFound } from "~/components/NotFound";
 import { APP_DESCRIPTION, APP_NAME } from "~/config/app";
 import appCss from "~/styles/app.css?url";
+import { conversationsListQueryOptions } from "~/utils/conversations";
 import { seo } from "~/utils/seo";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(conversationsListQueryOptions()),
   head: () => ({
     meta: [
       {
