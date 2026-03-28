@@ -6,36 +6,21 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+  html {
+    color-scheme: light dark;
+  }
+
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-  * {
     @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
-}
-
-@layer base {
-  html {
-    color-scheme: light dark;
-  }
-
-  * {
-    @apply border-gray-200 dark:border-gray-800;
   }
 
   html,
   body {
-    @apply text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-200;
+    @apply min-h-full bg-background font-sans text-foreground antialiased;
   }
 
   .using-mouse * {
@@ -46,6 +31,63 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: "Geist Variable", sans-serif;
+
+  /* ── Palette: Space Indigo ── */
+  --color-space-indigo-100: #07070c;
+  --color-space-indigo-200: #0d0d17;
+  --color-space-indigo-300: #141423;
+  --color-space-indigo-400: #1b1b2f;
+  --color-space-indigo-500: #22223b;
+  --color-space-indigo-600: #40406f;
+  --color-space-indigo-700: #6060a3;
+  --color-space-indigo-800: #9595c2;
+  --color-space-indigo-900: #cacae0;
+
+  /* ── Palette: Dusty Grape ── */
+  --color-dusty-grape-100: #0f1015;
+  --color-dusty-grape-200: #1e1f2a;
+  --color-dusty-grape-300: #2c2f3f;
+  --color-dusty-grape-400: #3b3e54;
+  --color-dusty-grape-500: #4a4e69;
+  --color-dusty-grape-600: #666b8f;
+  --color-dusty-grape-700: #8b8fac;
+  --color-dusty-grape-800: #b1b4c8;
+  --color-dusty-grape-900: #d8dae3;
+
+  /* ── Palette: Lilac Ash ── */
+  --color-lilac-ash-100: #1f1c1f;
+  --color-lilac-ash-200: #3f383e;
+  --color-lilac-ash-300: #5e535c;
+  --color-lilac-ash-400: #7d6f7b;
+  --color-lilac-ash-500: #9a8c98;
+  --color-lilac-ash-600: #aea4ad;
+  --color-lilac-ash-700: #c3bbc1;
+  --color-lilac-ash-800: #d7d2d6;
+  --color-lilac-ash-900: #ebe8ea;
+
+  /* ── Palette: Almond Silk ── */
+  --color-almond-silk-100: #2e1f1c;
+  --color-almond-silk-200: #5b3e38;
+  --color-almond-silk-300: #895d54;
+  --color-almond-silk-400: #ad8279;
+  --color-almond-silk-500: #c9ada7;
+  --color-almond-silk-600: #d4bdb8;
+  --color-almond-silk-700: #dececa;
+  --color-almond-silk-800: #e9dedc;
+  --color-almond-silk-900: #f4efed;
+
+  /* ── Palette: Parchment ── */
+  --color-parchment-100: #3f2a1e;
+  --color-parchment-200: #7f543d;
+  --color-parchment-300: #b58165;
+  --color-parchment-400: #d3b5a4;
+  --color-parchment-500: #f2e9e4;
+  --color-parchment-600: #f4ede9;
+  --color-parchment-700: #f7f1ee;
+  --color-parchment-800: #faf6f4;
+  --color-parchment-900: #fcfaf9;
+
+  /* ── Semantic tokens ── */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -87,70 +129,70 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --background: #fcfaf9; /* parchment-900 */
+  --foreground: #22223b; /* space-indigo-500 */
+  --card: #f7f1ee; /* parchment-700 */
+  --card-foreground: #22223b; /* space-indigo-500 */
+  --popover: #f7f1ee; /* parchment-700 */
+  --popover-foreground: #22223b; /* space-indigo-500 */
+  --primary: #4a4e69; /* dusty-grape-500 */
+  --primary-foreground: #f2e9e4; /* parchment-500 */
+  --secondary: #e9dedc; /* almond-silk-800 */
+  --secondary-foreground: #22223b; /* space-indigo-500 */
+  --muted: #ebe8ea; /* lilac-ash-900 */
+  --muted-foreground: #5e535c; /* lilac-ash-300 — darker for readable contrast */
+  --accent: #d7d2d6; /* lilac-ash-800 */
+  --accent-foreground: #22223b; /* space-indigo-500 */
+  --destructive: #89372e; /* warm destructive from palette */
+  --border: #c3bbc1; /* lilac-ash-700 — visible against parchment bg */
+  --input: #c3bbc1; /* lilac-ash-700 */
+  --ring: #4a4e69; /* dusty-grape-500 — strong focus indicator */
+  --chart-1: #4a4e69; /* dusty-grape-500 */
+  --chart-2: #9a8c98; /* lilac-ash-500 */
+  --chart-3: #c9ada7; /* almond-silk-500 */
+  --chart-4: #22223b; /* space-indigo-500 */
+  --chart-5: #6060a3; /* space-indigo-700 */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #22223b; /* space-indigo-500 */
+  --sidebar-foreground: #f2e9e4; /* parchment-500 */
+  --sidebar-primary: #6060a3; /* space-indigo-700 */
+  --sidebar-primary-foreground: #f2e9e4; /* parchment-500 */
+  --sidebar-accent: #1b1b2f; /* space-indigo-400 */
+  --sidebar-accent-foreground: #d8dae3; /* dusty-grape-900 */
+  --sidebar-border: #40406f; /* space-indigo-600 */
+  --sidebar-ring: #9a8c98; /* lilac-ash-500 */
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #07070c; /* space-indigo-100 */
+  --foreground: #ebe8ea; /* lilac-ash-900 */
+  --card: #0d0d17; /* space-indigo-200 */
+  --card-foreground: #ebe8ea; /* lilac-ash-900 */
+  --popover: #0d0d17; /* space-indigo-200 */
+  --popover-foreground: #ebe8ea; /* lilac-ash-900 */
+  --primary: #9595c2; /* space-indigo-800 */
+  --primary-foreground: #07070c; /* space-indigo-100 */
+  --secondary: #1e1f2a; /* dusty-grape-200 */
+  --secondary-foreground: #d8dae3; /* dusty-grape-900 */
+  --muted: #1e1f2a; /* dusty-grape-200 */
+  --muted-foreground: #b1b4c8; /* dusty-grape-800 */
+  --accent: #2c2f3f; /* dusty-grape-300 */
+  --accent-foreground: #ebe8ea; /* lilac-ash-900 */
+  --destructive: #c25a52; /* warm destructive for dark */
+  --border: #666b8f; /* dusty-grape-600 — visible against dark bg */
+  --input: #666b8f; /* dusty-grape-600 */
+  --ring: #8b8fac; /* dusty-grape-700 */
+  --chart-1: #9595c2; /* space-indigo-800 */
+  --chart-2: #c9ada7; /* almond-silk-500 */
+  --chart-3: #cacae0; /* space-indigo-900 */
+  --chart-4: #aea4ad; /* lilac-ash-600 */
+  --chart-5: #d4bdb8; /* almond-silk-600 */
+  --sidebar: #07070c; /* space-indigo-100 */
+  --sidebar-foreground: #ebe8ea; /* lilac-ash-900 */
+  --sidebar-primary: #cacae0; /* space-indigo-900 */
+  --sidebar-primary-foreground: #07070c; /* space-indigo-100 */
+  --sidebar-accent: #1e1f2a; /* dusty-grape-200 */
+  --sidebar-accent-foreground: #d8dae3; /* dusty-grape-900 */
+  --sidebar-border: #3b3e54; /* dusty-grape-400 */
+  --sidebar-ring: #8b8fac; /* dusty-grape-700 */
 }

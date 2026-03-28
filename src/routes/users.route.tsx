@@ -14,7 +14,7 @@ function UsersComponent() {
   const usersQuery = useSuspenseQuery(usersQueryOptions());
 
   return (
-    <div className="p-2 flex gap-2">
+    <div className="flex gap-2 p-2">
       <ul className="list-disc pl-4">
         {[
           ...usersQuery.data,

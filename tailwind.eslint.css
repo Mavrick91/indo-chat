@@ -1,0 +1,2 @@
+/* ESLint tailwind plugin (v4) loads design system from a root CSS path so `pwd` resolves `tailwindcss` from node_modules. */
+@import "./src/styles/app.css";
