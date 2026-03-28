@@ -1,9 +1,17 @@
+import { fileURLToPath } from "node:url";
+
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import tailwindcss from "eslint-plugin-tailwindcss";
 import tseslint from "typescript-eslint";
+
+/** Absolute path so tailwind-api-utils workers resolve `tailwindcss` from this repo. */
+const tailwindEslintCssPath = fileURLToPath(
+  new URL("./tailwind.eslint.css", import.meta.url),
+);
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export default tseslint.config(
@@ -29,7 +37,6 @@ export default tseslint.config(
         projectService: {
           allowDefaultProject: ["eslint.config.js"],
         },
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -81,6 +88,16 @@ export default tseslint.config(
   // TypeScript rules
   {
     rules: {
+      // Unused variables: error, but allow _prefixed names
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+
       // No any
       "@typescript-eslint/no-explicit-any": "error",
 
@@ -96,6 +113,9 @@ export default tseslint.config(
 
       // Type assertions allowed — relax the strict config
       "@typescript-eslint/consistent-type-assertions": "off",
+
+      // Allow numbers and other values in template literals without String()
+      "@typescript-eslint/restrict-template-expressions": "off",
 
       // Prefer const
       "prefer-const": "error",
@@ -172,6 +192,16 @@ export default tseslint.config(
       "func-style": ["error", "declaration", { allowArrowFunctions: true }],
 
       // Event handler naming (handle prefix enforced via naming-convention for functions)
+
+      // Enforce inline exports — ban `export { Foo }` at bottom of file
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "ExportNamedDeclaration[declaration=null][source=null]",
+          message:
+            "Use inline exports (export function / export const) instead of bottom-of-file export blocks.",
+        },
+      ],
     },
   },
 
@@ -236,6 +266,50 @@ export default tseslint.config(
     files: ["*.config.{js,ts}", "*.config.*.{js,ts}"],
     rules: {
       "no-restricted-exports": "off",
+    },
+  },
+
+  // Root ESLint config — `fileURLToPath` / plugin setup is intentional
+  {
+    files: ["eslint.config.js"],
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+    },
+  },
+
+  // Server handlers and server fns — console is normal for request/debug logs
+  {
+    files: [
+      "src/routes/api/**/*.ts",
+      "src/utils/posts.tsx",
+    ],
+    rules: {
+      "no-console": "off",
+    },
+  },
+
+  // Tailwind CSS — class ordering, shorthand, arbitrary-value hints (Tailwind v4: beta plugin)
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    settings: {
+      tailwindcss: {
+        // Tailwind v4: load from repo root so tailwind-api-utils resolves `tailwindcss` (not from src/styles)
+        config: tailwindEslintCssPath,
+        cssFiles: ["src/styles/app.css", "tailwind.eslint.css"],
+      },
+    },
+  },
+  ...tailwindcss.configs["flat/recommended"].map((block) => ({
+    ...block,
+    files: ["src/**/*.{ts,tsx}"],
+  })),
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    rules: {
+      // shadcn + @theme/CSS variables register utilities eslint-plugin-tailwindcss does not know
+      "tailwindcss/no-custom-classname": "off",
     },
   },
 
