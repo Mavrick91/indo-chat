@@ -5,6 +5,7 @@ import { Link, useMatchRoute, useRouter } from "@tanstack/react-router";
 import { Menu, MessageSquarePlus, SquarePen, Trash2, X } from "lucide-react";
 
 import { APP_NAME } from "~/config/app";
+import { useEscapeKey } from "~/hooks/useEscapeKey";
 import {
   conversationsListQueryOptions,
   deleteConversation,
@@ -220,14 +221,7 @@ export function Sidebar() {
 
   const closeMobile = () => setIsMobileOpen(false);
 
-  useEffect(() => {
-    if (!isMobileOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsMobileOpen(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isMobileOpen]);
+  useEscapeKey(isMobileOpen, closeMobile);
 
   return (
     <>

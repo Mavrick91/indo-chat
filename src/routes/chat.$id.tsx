@@ -1,9 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ChatView } from "~/components/ChatView";
+import { ChatLayout } from "~/components/ChatLayout";
 import { NotFound } from "~/components/NotFound";
-import { Sidebar } from "~/components/Sidebar";
 import { conversationQueryOptions } from "~/utils/conversations";
 
 export const Route = createFileRoute("/chat/$id")({
@@ -30,12 +29,9 @@ function ExistingChatPage() {
   }));
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar />
-      <ChatView
-        conversationId={data.conversation.id}
-        initialMessages={initialMessages}
-      />
-    </div>
+    <ChatLayout
+      conversationId={data.conversation.id}
+      initialMessages={initialMessages}
+    />
   );
 }
